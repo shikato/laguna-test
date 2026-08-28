@@ -1,0 +1,380 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    gap: 16px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.search-box {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 200px;
+}
+
+.board-container {
+    display: flex;
+    gap: 16px;
+    padding: 24px 32px;
+    overflow-x: auto;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+}
+
+.columns {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    min-width: fit-content;
+}
+
+.column {
+    background: #f0f2f5;
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 280px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.column-title {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.column-title:focus {
+    outline: 2px solid #007bff;
+    border-color: #007bff;
+}
+
+.column-menu {
+    display: flex;
+    gap: 4px;
+}
+
+.column-menu button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.column-menu button:hover {
+    opacity: 1;
+    background: #e0e0e0;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+}
+
+.card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 12px;
+    border-left: 4px solid #ccc;
+    cursor: grab;
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.card.dragging {
+    opacity: 0.5;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    word-break: break-word;
+}
+
+.card-title.edit-input {
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.card-description {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.card-description.edit-textarea {
+    width: 100%;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.card-actions button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.card-due-date {
+    font-size: 11px;
+    color: #888;
+}
+
+.card.overdue .card-due-date {
+    color: #e53935;
+    font-weight: bold;
+}
+
+.card.overdue {
+    background: #fff5f5;
+    border-left-color: #e53935;
+}
+
+.card-label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+.label-red { background: #e53935; }
+.label-orange { background: #fb8c00; }
+.label-yellow { background: #fdd835; }
+.label-green { background: #43a047; }
+.label-blue { background: #1e88e5; }
+
+.column-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.add-card-btn {
+    background: none;
+    border: 1px dashed #bbb;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.add-card-btn:hover {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.add-column-btn {
+    background: #f0f2f5;
+    border: 2px dashed #bbb;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    color: #888;
+    cursor: pointer;
+    text-align: center;
+    min-width: 100px;
+    align-self: flex-start;
+    transition: all 0.2s;
+}
+
+.add-column-btn:hover {
+    background: #e0e0e0;
+    color: #333;
+    border-color: #999;
+}
+
+.dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+}
+
+.dialog::backdrop {
+    background: rgba(0,0,0,0.5);
+}
+
+.dialog-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dialog h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.dialog-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.dialog-textarea {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.label-selector {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.label-option {
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+    transition: all 0.2s;
+}
+
+.label-option.selected {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.label-option.label-red { background: #e53935; }
+.label-option.label-orange { background: #fb8c00; }
+.label-option.label-yellow { background: #fdd835; }
+.label-option.label-green { background: #43a047; }
+.label-option.label-blue { background: #1e88e5; }
+
+.due-date-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.due-date-selector input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #0069d9;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #555;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}

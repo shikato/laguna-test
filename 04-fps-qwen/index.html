@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>DoomライクFPS</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+  canvas { display: block; }
+  #hud {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 16px 24px; pointer-events: none;
+    font-family: monospace; font-size: 22px; font-weight: bold;
+    color: #fff; text-shadow: 0 0 6px #000, 2px 2px 0 #000;
+    z-index: 10;
+  }
+  #guide {
+    position: fixed; left: 0; right: 0; bottom: 64px;
+    text-align: center; pointer-events: none;
+    font-family: monospace; font-size: 16px; font-weight: bold;
+    color: #fff; text-shadow: 0 0 6px #000, 2px 2px 0 #000;
+    z-index: 15;
+  }
+  #crosshair {
+    position: fixed; left: 50%; top: 50%;
+    width: 20px; height: 20px;
+    transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 10;
+  }
+  #crosshair::before, #crosshair::after {
+    content: ""; position: absolute; background: #fff;
+    box-shadow: 0 0 3px #000;
+  }
+  #crosshair::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
+  #crosshair::after { left: 0; top: 50%; width: 100%; height: 2px; transform: translateY(-50%); }
+  #overlay {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: rgba(0, 0, 0, 0.65);
+    font-family: monospace; color: #fff;
+    text-align: center; z-index: 20;
+  }
+  #overlay h1 { font-size: 64px; margin: 0 0 24px; text-shadow: 0 0 20px #f00; }
+  #overlay p { font-size: 24px; margin: 8px 0; }
+  .hidden { display: none !important; }
+  #hpBar { color: #4f4; }
+  .dim { font-size: 16px; opacity: 0.7; }
+  .guide { font-size: 16px; opacity: 0.75; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="guide"></div>
+<div id="crosshair" class="hidden"></div>
+<div id="hud" class="hidden">
+  <div>HP <span id="hp">100</span> <span id="hpBar"></span></div>
+  <div>弾 <span id="ammo">30</span><span class="dim"> / 30</span>（R: リロード）</div>
+  <div>撃破 <span id="kills">0</span> / 5</div>
+</div>
+<div id="overlay">
+  <h1 id="title">DOOMライク FPS</h1>
+  <p id="msg">クリックで開始（マウスがロックされます）</p>
+  <p class="guide" id="guideTitle"></p>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>

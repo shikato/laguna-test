@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カンバンボード</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>カンバンボード</h1>
+        <input type="text" id="searchBox" placeholder="カードを検索..." class="search-box">
+    </header>
+
+    <main class="board-container">
+        <div class="columns" id="columns">
+            <!-- Columns will be dynamically added here -->
+        </div>
+        <button id="addColumnBtn" class="add-column-btn">＋カラムを追加</button>
+    </main>
+
+    <!-- Column dialog -->
+    <dialog id="columnDialog" class="dialog">
+        <form method="dialog" class="dialog-form">
+            <h2 id="columnDialogTitle">カラムを追加</h2>
+            <input type="text" id="columnNameInput" placeholder="カラム名" class="dialog-input">
+            <div class="dialog-actions">
+                <button type="button" id="columnCancelBtn" class="btn btn-secondary">キャンセル</button>
+                <button type="submit" id="columnSubmitBtn" class="btn btn-primary">OK</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Card dialog -->
+    <dialog id="cardDialog" class="dialog">
+        <form method="dialog" class="dialog-form">
+            <h2 id="cardDialogTitle">カードを追加</h2>
+            <input type="text" id="cardTitleInput" placeholder="タイトル" class="dialog-input">
+            <textarea id="cardDescriptionInput" placeholder="詳細説明" class="dialog-textarea"></textarea>
+            <div class="label-selector">
+                <span>ラベル色:</span>
+                <button type="button" class="label-option" data-label="label-red" data-label-name="赤">赤</button>
+                <button type="button" class="label-option" data-label="label-orange" data-label-name="橙">橙</button>
+                <button type="button" class="label-option" data-label="label-yellow" data-label-name="黄">黄</button>
+                <button type="button" class="label-option" data-label="label-green" data-label-name="緑">緑</button>
+                <button type="button" class="label-option" data-label="label-blue" data-label-name="青">青</button>
+            </div>
+            <div class="due-date-selector">
+                <label>期限日: <input type="date" id="cardDueDateInput"></label>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" id="cardCancelBtn" class="btn btn-secondary">キャンセル</button>
+                <button type="submit" id="cardSubmitBtn" class="btn btn-primary">OK</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="app.js"></script>
+</body>
+</html>
